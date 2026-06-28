@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wallace Digital — Build. Plan. Ship.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0d0a;--bg-card:#111611;--bg-card-hover:#151e15;
+    --border:#1e2b1e;--border-accent:#2d4a2d;
+    --green:#4cff6e;--green-dim:#2a8c3f;--green-glow:rgba(76,255,110,0.08);
+    --text:#e8ede8;--text-muted:#7a907a;--text-dim:#4a5e4a;
+    --mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;
+    --radius:6px;--radius-lg:12px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:16px;line-height:1.6;overflow-x:hidden}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:60px;background:rgba(10,13,10,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+  .nav-logo{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--green);letter-spacing:.05em;text-decoration:none}
+  .nav-links{display:flex;gap:32px;list-style:none}
+  .nav-links a{font-size:13px;color:var(--text-muted);text-decoration:none;transition:color .2s;letter-spacing:.02em}
+  .nav-links a:hover{color:var(--text)}
+  section{padding:100px 5vw;max-width:1100px;margin:0 auto}
+  section:first-of-type{padding-top:160px}
+  .section-label{font-family:var(--mono);font-size:11px;color:var(--green);letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+  .section-label::after{content:'';display:block;height:1px;width:40px;background:var(--green-dim)}
+  h1{font-size:clamp(40px,6vw,72px);font-weight:300;line-height:1.1;letter-spacing:-.03em;color:var(--text)}
+  h1 em{font-style:normal;color:var(--green)}
+  h2{font-size:clamp(28px,3.5vw,42px);font-weight:300;letter-spacing:-.02em;line-height:1.2;margin-bottom:40px;color:var(--text)}
+  h3{font-size:17px;font-weight:500;margin-bottom:10px;color:var(--text)}
+  p{color:var(--text-muted);line-height:1.75;max-width:600px}
+  #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:80px;position:relative}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+  .hero-tagline{font-size:15px;color:var(--text-muted);margin-top:28px;max-width:460px;line-height:1.75}
+  .hero-ctas{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--radius);font-size:14px;font-weight:500;text-decoration:none;transition:all .2s;cursor:pointer;border:none}
+  .btn-primary{background:var(--green);color:#0a0d0a}
+  .btn-primary:hover{background:#5dff7f}
+  .btn-ghost{background:transparent;color:var(--text-muted);border:1px solid var(--border-accent)}
+  .btn-ghost:hover{color:var(--text);border-color:var(--green-dim)}
+  .hero-stats{display:grid;grid-template-rows:1fr 1fr;gap:20px}
+  .stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;position:relative;overflow:hidden}
+  .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green-dim),transparent);opacity:.6}
+  .stat-number{font-family:var(--mono);font-size:42px;font-weight:400;color:var(--green);line-height:1}
+  .stat-label{font-size:13px;color:var(--text-muted);margin-top:6px}
+  .stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .stat-card.small .stat-number{font-size:28px}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+  .about-photo{aspect-ratio:3/4;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .photo-placeholder{text-align:center;padding:20px}
+  .photo-note{font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-top:12px}
+  .hive-svg{opacity:.25}
+  .about-text p{margin-bottom:20px}
+  .quals{margin-top:32px;display:flex;flex-direction:column;gap:10px}
+  .qual-item{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius)}
+  .qual-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px}
+  .qual-title{font-size:14px;font-weight:500;color:var(--text);line-height:1.3}
+  .qual-org{font-size:12px;color:var(--text-muted);margin-top:2px}
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .service-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;transition:all .25s;position:relative;overflow:hidden}
+  .service-card:hover{background:var(--bg-card-hover);border-color:var(--border-accent)}
+  .service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--green);opacity:0;transition:opacity .25s}
+  .service-card:hover::after{opacity:1}
+  .service-icon{width:44px;height:44px;border-radius:var(--radius);background:var(--green-glow);border:1px solid var(--border-accent);display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-size:20px}
+  .service-list{list-style:none;margin-top:14px}
+  .service-list li{font-size:13px;color:var(--text-muted);padding:5px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+  .service-list li:last-child{border-bottom:none}
+  .service-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--green-dim);flex-shrink:0}
+  .products-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .product-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px;transition:all .25s;position:relative;overflow:hidden}
+  .product-card.featured{border-color:var(--border-accent)}
+  .product-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--green)}
+  .product-card:hover{background:var(--bg-card-hover);border-color:var(--border-accent)}
+  .product-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:100px;margin-bottom:20px}
+  .badge-active{background:rgba(76,255,110,0.1);color:var(--green);border:1px solid rgba(76,255,110,0.2)}
+  .badge-internal{background:rgba(255,180,0,0.08);color:#c89a00;border:1px solid rgba(255,180,0,0.15)}
+  .badge-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  .product-name{font-size:24px;font-weight:500;margin-bottom:10px;letter-spacing:-.02em}
+  .product-desc{font-size:14px;color:var(--text-muted);line-height:1.7;max-width:100%;margin-bottom:24px}
+  .product-stack{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+  .stack-tag{font-family:var(--mono);font-size:11px;padding:3px 10px;border-radius:100px;background:transparent;border:1px solid var(--border-accent);color:var(--text-dim)}
+  .product-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--green);text-decoration:none;font-weight:500;transition:gap .2s}
+  .product-link:hover{gap:10px}
+  .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .work-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:border-color .2s}
+  .work-item:hover{border-color:var(--border-accent)}
+  .work-item.wide{grid-column:span 2}
+  .work-thumb{aspect-ratio:16/9;background:var(--bg);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);overflow:hidden}
+  .work-thumb.tall{aspect-ratio:4/5}
+  .thumb-placeholder{text-align:center;padding:20px}
+  .thumb-icon{font-size:36px;margin-bottom:10px;display:block;opacity:.4}
+  .thumb-note{font-family:var(--mono);font-size:10px;color:var(--text-dim);line-height:1.5}
+  .work-info{padding:18px 20px}
+  .work-category{font-family:var(--mono);font-size:10px;color:var(--green);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+  .work-title{font-size:15px;font-weight:500;color:var(--text)}
+  .work-sub{font-size:12px;color:var(--text-muted);margin-top:3px}
+  .articles-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .article-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;text-decoration:none;transition:all .2s;display:block}
+  .article-card:hover{background:var(--bg-card-hover);border-color:var(--border-accent)}
+  .article-date{font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-bottom:10px}
+  .article-title{font-size:16px;font-weight:500;color:var(--text);line-height:1.4;margin-bottom:10px}
+  .article-excerpt{font-size:13px;color:var(--text-muted);line-height:1.6;max-width:100%}
+  .article-arrow{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--green);margin-top:16px;font-weight:500}
+  #contact{text-align:center;max-width:700px;margin:0 auto;padding:120px 5vw}
+  #contact h2{margin-bottom:20px}
+  #contact p{margin:0 auto 40px;text-align:center;max-width:480px;font-size:15px}
+  .contact-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  footer{border-top:1px solid var(--border);padding:32px 5vw;display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto}
+  .footer-brand{font-family:var(--mono);font-size:12px;color:var(--text-dim)}
+  .footer-brand span{color:var(--green)}
+  .footer-links{display:flex;gap:24px;list-style:none}
+  .footer-links a{font-size:12px;color:var(--text-dim);text-decoration:none;transition:color .2s}
+  .footer-links a:hover{color:var(--text-muted)}
+  .section-divider{width:100%;height:1px;background:var(--border);max-width:1100px;margin:0 auto}
+  .terminal{background:#080c08;border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;font-family:var(--mono);font-size:13px;line-height:1.8;margin:32px 0}
+  .t-prompt{color:var(--green)}.t-cmd{color:var(--text)}.t-out{color:var(--text-muted)}
+  @keyframes blink{50%{opacity:0}}
+  .cursor{display:inline-block;width:2px;height:1em;background:var(--green);margin-left:2px;vertical-align:middle;animation:blink 1s step-end infinite}
+  @media(max-width:768px){
+    .hero-grid,.about-grid,.products-grid,.articles-grid{grid-template-columns:1fr}
+    .services-grid{grid-template-columns:1fr}
+    .work-grid{grid-template-columns:1fr}
+    .work-item.wide{grid-column:span 1}
+    nav .nav-links{display:none}
+    h1{font-size:38px}
+    footer{flex-direction:column;gap:20px;text-align:center}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">WD /</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#articles">Articles</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="max-width:1100px;margin:0 auto;padding:80px 5vw;">
+  <div class="hero-grid">
+    <div>
+      <div class="section-label">Perth, Western Australia</div>
+      <h1>Build.<br><em>Plan.</em><br>Ship.</h1>
+      <p class="hero-tagline">Senior central planner by day. Independent operator and founder by build.<br>I design infrastructure, develop products, and automate the gap between the two.</p>
+      <div class="hero-ctas">
+        <a href="#services" class="btn btn-primary">What I offer</a>
+        <a href="#products" class="btn btn-ghost">See the products</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Years in planning and project management</div>
+      </div>
+      <div class="stat-pair">
+        
+        <div class="stat-card small">
+          <div class="stat-number">2</div>
+          <div class="stat-label">Live digital products</div>
+        </div>
+        <div class="stat-card small">
+          <div class="stat-number">1</div>
+          <div class="stat-label">Active ABN, Wallace Digital</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ABOUT -->
+<section id="about" style="max-width:1100px;margin:0 auto;">
+  <div class="section-label">About</div>
+  <div class="about-grid">
+    <div class="about-photo"><img src="./images/damian.jpg" alt="Damian Wallace" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius-lg);"></div>
+    <div class="about-text">
+      <h2 style="font-size:32px;margin-bottom:24px;">Damian Wallace</h2>
+      <p>Senior Central Planner at Macmahon Holdings (Perth Airport) with over 15 years experience in complex project environments — from underground mining to infrastructure programmes. I understand how large operations run, where they break, and how to build the systems that keep them moving.</p>
+      <p>Outside the day job I run Wallace Digital, where I develop products and digital infrastructure. My two current ventures are ChargeSafe — an Australian EV charger confidence app — and Zed83, a private AI assistant with Garmin health integration, home automation, and real-time data feeds.</p>
+      <p>I also keep bees and renovate property. Both share a philosophy: understand the system, respect what's already working, and only intervene with purpose.</p>
+      <div class="quals">
+        <div class="section-label" style="margin-top:32px;margin-bottom:12px;">Qualifications</div>
+        
+        <div class="qual-item">
+          <div class="qual-dot"></div>
+          <div>
+            <div class="qual-title">Certificate IV in Project Management Practice</div>
+            <div class="qual-org">TAFE / BSB — Verified on LinkedIn</div>
+          </div>
+        </div>
+        <div class="qual-item">
+          <div class="qual-dot"></div>
+          <div>
+            <div class="qual-title">Planning and Scheduling (Advanced)</div>
+            <div class="qual-org">Macmahon Holdings — Mining &amp; Infrastructure</div>
+          </div>
+        </div>
+        <div class="qual-item">
+          <div class="qual-dot"></div>
+          <div>
+            <div class="qual-title">Self-Directed — Mobile, Backend, AI Tooling</div>
+            <div class="qual-org">React Native · Python · Node.js · Cloudflare · Docker</div>
+          </div>
+        </div>
+        <a href="https://www.linkedin.com/in/damian-wallace-0b41766a/" target="_blank" class="btn btn-ghost" style="margin-top:8px;font-size:13px;">
+          View full profile on LinkedIn →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SERVICES -->
+<section id="services" style="max-width:1100px;margin:0 auto;">
+  <div class="section-label">Services</div>
+  <h2>What I can do for you</h2>
+  <div class="services-grid">
+    
+    <div class="service-card">
+      <div class="service-icon">📐</div>
+      <h3>Planning &amp; Scheduling</h3>
+      <p style="font-size:13px;margin-top:8px;max-width:100%;">Complex project planning from first principles — programme development, schedule health, resource levelling, and constraint analysis.</p>
+      <ul class="service-list">
+        <li>Primavera P6 / MS Project</li><li>Programme development</li><li>Schedule compression &amp; recovery</li><li>Mining, construction, infrastructure</li><li>Stakeholder reporting</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⚙️</div>
+      <h3>Digital Automation</h3>
+      <p style="font-size:13px;margin-top:8px;max-width:100%;">Business process automation using Microsoft Power Platform, bespoke API pipelines, and AI tooling. From approval flows to data reporting.</p>
+      <ul class="service-list">
+        <li>Power Automate flows</li><li>SharePoint + Teams integration</li><li>Forms → approval → notification</li><li>Custom Python / Node.js scripts</li><li>AI agent integration</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🛠️</div>
+      <h3>Product Development</h3>
+      <p style="font-size:13px;margin-top:8px;max-width:100%;">End-to-end mobile and web product build — from concept to deployed app. React Native, Expo, Xano backend, Cloudflare infrastructure.</p>
+      <ul class="service-list">
+        <li>React Native (Expo)</li><li>Xano backend / REST APIs</li><li>Cloudflare Tunnels &amp; DNS</li><li>Tailscale remote networking</li><li>Docker / NAS / self-hosted</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏗️</div>
+      <h3>Infrastructure &amp; Renovation</h3>
+      <p style="font-size:13px;margin-top:8px;max-width:100%;">Hands-on residential renovation experience — planning, sequencing, and delivery. The same discipline that runs a mining programme runs a reno.</p>
+      <ul class="service-list">
+        <li>Project sequencing</li><li>Trade coordination</li><li>Budget tracking</li><li>Before/after documentation</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🐝</div>
+      <h3>Apiculture</h3>
+      <p style="font-size:13px;margin-top:8px;max-width:100%;">Hobbyist beekeeper with hives in the Perth region. Available for consultation, local honey, or just a conversation about building healthy colonies.</p>
+      <ul class="service-list">
+        <li>Perth metro hive management</li><li>Colony health assessment</li><li>Local raw honey</li><li>New beekeeper mentoring</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🤖</div>
+      <h3>AI Integration Consulting</h3>
+      <p style="font-size:13px;margin-top:8px;max-width:100%;">Real-world experience integrating large language models into operational workflows. No hype — just working systems built to run autonomously.</p>
+      <ul class="service-list">
+        <li>Telegram bot / assistant builds</li><li>Groq / Anthropic API integration</li><li>Data retrieval + scheduling</li><li>Voice in/out pipelines</li><li>Private, self-hosted deployments</li>
+      </ul>
+    </div>
+  </div>
+  <div class="terminal">
+    <div><span class="t-prompt">damian@wallacedigital:~$</span> <span class="t-cmd">cat capabilities.txt</span></div>
+    <div class="t-out">Plan complex operations &nbsp;&nbsp;&nbsp;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0; 15+ yrs</div>
+    <div class="t-out">Build digital products &nbsp;&nbsp;&nbsp;&nbsp;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A1;&#x25A1; active</div>
+    <div class="t-out">Automate workflows &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A1;&#x25A1; active</div>
+    <div class="t-out">Self-hosted infra &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A1;&#x25A1;&#x25A1;&#x25A1; growing</div>
+    <div><span class="t-prompt">$</span> <span class="cursor"></span></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PRODUCTS -->
+<section id="products" style="max-width:1100px;margin:0 auto;">
+  <div class="section-label">Products</div>
+  <h2>Built by Wallace Digital</h2>
+  <div class="products-grid">
+    
+    <div class="product-card featured">
+      <div class="product-badge badge-active">
+        <div class="badge-dot"></div>
+        In development
+      </div>
+      <div class="product-name">ChargeSafe</div>
+      <p class="product-desc">Australian EV charger finder and confidence app. Not just a directory — ChargeSafe gives EV drivers real-time charger status, trip energy planning, and confidence scoring so you never arrive at a broken charger unprepared.</p>
+      <div class="product-stack">
+        <span class="stack-tag">React Native</span><span class="stack-tag">Expo</span><span class="stack-tag">Xano</span><span class="stack-tag">Google Maps API</span><span class="stack-tag">Chargefox API</span>
+      </div>
+      <a href="https://chargesafe.au" target="_blank" class="product-link">chargesafe.au →</a>
+    </div>
+    <div class="product-card">
+      <div class="product-badge badge-internal">
+        <div class="badge-dot"></div>
+        Private / internal
+      </div>
+      <div class="product-name">Zed83</div>
+      <p class="product-desc">A personal AI assistant operating via Telegram with voice in/out, Garmin health integration, Google Calendar sync, real-time data feeds, and autonomous nightly maintenance. Built to run 24/7 without intervention.</p>
+      <div class="product-stack">
+        <span class="stack-tag">Python</span><span class="stack-tag">Groq</span><span class="stack-tag">Anthropic</span><span class="stack-tag">Telegram</span><span class="stack-tag">Garmin</span><span class="stack-tag">Docker</span>
+      </div>
+      <span style="font-size:13px;color:var(--text-dim);">Private deployment — capacity demonstrated on request</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- WORK -->
+<section id="work" style="max-width:1100px;margin:0 auto;">
+  <div class="section-label">Work &amp; Interests</div>
+  <h2 style="margin-bottom:16px;">Where the hands-on lives</h2>
+  <p style="margin-bottom:48px;">Real projects, real results.</p>
+  <div class="work-grid">
+    
+    <div class="work-item wide">
+      <div class="work-thumb">
+        <img src="./images/bee-activities-1.jpg" alt="Perth metro hive management" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="work-info">
+        <div class="work-category">Apiculture</div>
+        <div class="work-title">Perth metro hive management</div>
+        <div class="work-sub">Colony health, honey harvests, seasonal splits</div>
+      </div>
+    </div>
+    <div class="work-item">
+      <div class="work-thumb tall">
+        <img src="./images/renovating-1.jpg" alt="Residential project" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="work-info">
+        <div class="work-category">Renovation</div>
+        <div class="work-title">Residential project</div>
+        <div class="work-sub">Full scope from planning to handover</div>
+      </div>
+    </div>
+    <div class="work-item">
+      <div class="work-thumb tall">
+        <img src="./images/chargesafe-screenshot.png" alt="ChargeSafe — map view" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="work-info">
+        <div class="work-category">App development</div>
+        <div class="work-title">ChargeSafe — map view</div>
+        <div class="work-sub">React Native, live charger data, Perth metro</div>
+      </div>
+    </div>
+    <div class="work-item">
+      <div class="work-thumb tall">
+        <img src="./images/aimwa-1.jpg" alt="AIMWA — Industry engagement" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="work-info">
+        <div class="work-category">Planning &amp; Industry</div>
+        <div class="work-title">AIMWA — Industry engagement</div>
+        <div class="work-sub">Planning, infrastructure, professional development</div>
+      </div>
+    </div>
+    <div class="work-item">
+      <div class="work-thumb tall">
+        <img src="./images/renovating-3.jpg" alt="On-site delivery" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="work-info">
+        <div class="work-category">Renovation</div>
+        <div class="work-title">On-site delivery</div>
+        <div class="work-sub">Detail work, hands-on</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ARTICLES -->
+<section id="articles" style="max-width:1100px;margin:0 auto;">
+  <div class="section-label">Writing</div>
+  <h2>Published on LinkedIn</h2>
+  <div class="articles-grid">
+    
+    <a href="https://www.linkedin.com/pulse/what-parisroubaix-team-size-toxic-charity-have-common-damian-wallace-lvrqc/" target="_blank" class="article-card">
+      <div class="article-date">2026</div>
+      <div class="article-title">What Paris-Roubaix, Team Size, and Toxic Charity Have in Common</div>
+      <div class="article-excerpt">Three things that look unrelated on the surface — a bike race, headcount decisions, and charitable giving — all share the same structural flaw. A look at how good intentions without the right system produce bad outcomes.</div>
+      <div class="article-arrow">Read on LinkedIn →</div>
+    </a>
+    <a href="https://www.linkedin.com/pulse/how-chicken-tariff-gave-america-massive-pickup-trucks-damian-wallace-p6okc/" target="_blank" class="article-card">
+      <div class="article-date">2026</div>
+      <div class="article-title">How a Chicken Tariff Gave America Massive Pickup Trucks</div>
+      <div class="article-excerpt">The unexpected origin story of the American ute — a 1960s trade dispute that reshaped an entire vehicle category for decades. A lesson in how policy creates permanent market structures nobody planned for.</div>
+      <div class="article-arrow">Read on LinkedIn →</div>
+    </a>
+    <a href="https://www.linkedin.com/pulse/when-mastery-removes-need-prove-anything-restraint-starts-wallace-pikdc/" target="_blank" class="article-card">
+      <div class="article-date">2026</div>
+      <div class="article-title">When Mastery Removes the Need to Prove Anything — Restraint Starts Here</div>
+      <div class="article-excerpt">The most capable people in the room are often the quietest. On the relationship between genuine expertise, ego, and why restraint is a signal of competence rather than a lack of it.</div>
+      <div class="article-arrow">Read on LinkedIn →</div>
+    </a>
+    <a href="https://www.linkedin.com/pulse/same-name-different-lives-what-curiosity-reveals-value-damian-wallace-ttbyc/" target="_blank" class="article-card">
+      <div class="article-date">2025</div>
+      <div class="article-title">Same Name, Different Lives — What Curiosity Reveals About Value</div>
+      <div class="article-excerpt">What happens when you look up everyone who shares your name? An exploration of how curiosity about others sharpens your understanding of your own path and what you actually bring to the table.</div>
+      <div class="article-arrow">Read on LinkedIn →</div>
+    </a>
+    <a href="https://www.linkedin.com/pulse/failure-isnt-opposite-progress-its-steering-wheel-damian-wallace-cma1c/" target="_blank" class="article-card">
+      <div class="article-date">2025</div>
+      <div class="article-title">Failure Isn't the Opposite of Progress — It's the Steering Wheel</div>
+      <div class="article-excerpt">Reframing failure not as a setback but as the feedback mechanism that keeps you on course. The projects and decisions that taught the most were rarely the ones that went smoothly.</div>
+      <div class="article-arrow">Read on LinkedIn →</div>
+    </a>
+    <a href="https://www.linkedin.com/pulse/reading-system-through-wrapper-damian-wallace-ifodc/" target="_blank" class="article-card">
+      <div class="article-date">2025</div>
+      <div class="article-title">Reading the System Through the Wrapper</div>
+      <div class="article-excerpt">How to understand what's really going on in any organisation, project, or product — by paying attention to the surface behaviours that reveal the underlying structure.</div>
+      <div class="article-arrow">Read on LinkedIn →</div>
+    </a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label" style="justify-content:center;">Contact</div>
+  <h2>Let's work together</h2>
+  <p>Available for consulting, planning contracts, automation projects, or product partnerships. Perth-based, remote-capable.</p>
+  <div class="contact-links">
+    <a href="mailto:damian@wallacedigital.au" class="btn btn-primary">damian@wallacedigital.au</a>
+    <a href="https://www.linkedin.com/in/damian-wallace-0b41766a/" target="_blank" class="btn btn-ghost">LinkedIn</a>
+    <a href="https://chargesafe.au" target="_blank" class="btn btn-ghost">ChargeSafe</a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+<footer>
+  <div class="footer-brand"><span>Wallace Digital</span> — ABN active — Perth, Western Australia</div>
+  <ul class="footer-links">
+    <li><a href="https://chargesafe.au" target="_blank">ChargeSafe</a></li>
+    <li><a href="https://www.linkedin.com/in/damian-wallace-0b41766a/" target="_blank">LinkedIn</a></li>
+    <li><a href="mailto:damian@wallacedigital.au">Contact</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
