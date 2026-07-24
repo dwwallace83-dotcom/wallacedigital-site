@@ -615,3 +615,100 @@ console.log(`✅ Built → ${outPath}`);
 console.log(`   ${CONFIG.work.filter(w => !w.image).length} work image(s) still need paths`);
 console.log(`   ${CONFIG.articles.filter(a => a.url.includes("YOUR")).length} article URL(s) still placeholder`);
 if (!CONFIG.photo) console.log(`   Profile photo not set (CONFIG.photo is empty)`);
+
+// ============================================================
+//  PRIVACY POLICY PAGE
+//  Source: privacy-policy.md (edit that file, not this script,
+//  to update the policy text — then re-run this build).
+// ============================================================
+
+function inlineMd(str) {
+  let out = esc(str);
+  out = out.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  out = out.replace(/\*(.+?)\*/g, "<em>$1</em>");
+  return out;
+}
+
+function mdToHtml(md) {
+  const lines = md.replace(/\r\n/g, "\n").split("\n");
+  let html = "";
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i];
+    if (line.trim() === "") { i++; continue; }
+    if (line.trim() === "---") { html += "<hr>\n"; i++; continue; }
+    if (line.startsWith("## ")) { html += `<h2>${inlineMd(line.slice(3))}</h2>\n`; i++; continue; }
+    if (line.startsWith("# ")) { html += `<h1>${inlineMd(line.slice(2))}</h1>\n`; i++; continue; }
+    if (line.startsWith("- ")) {
+      html += "<ul>\n";
+      while (i < lines.length && lines[i].startsWith("- ")) {
+        html += `  <li>${inlineMd(lines[i].slice(2))}</li>\n`;
+        i++;
+      }
+      html += "</ul>\n";
+      continue;
+    }
+    // paragraph — collect consecutive non-blank, non-special lines
+    let para = [line];
+    i++;
+    while (i < lines.length && lines[i].trim() !== "" && !lines[i].startsWith("#") && !lines[i].startsWith("- ") && lines[i].trim() !== "---") {
+      para.push(lines[i]);
+      i++;
+    }
+    html += `<p>${para.map(inlineMd).join("<br>\n")}</p>\n`;
+  }
+  return html;
+}
+
+const privacyMdPath = path.join(__dirname, "privacy-policy.md");
+const privacyMd = fs.readFileSync(privacyMdPath, "utf8");
+const privacyBody = mdToHtml(privacyMd);
+
+const privacyHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — ChargeSafe | Wallace Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0d0a;--bg-card:#111611;
+    --border:#1e2b1e;
+    --green:#4cff6e;--green-dim:#2a8c3f;
+    --text:#e8ede8;--text-muted:#7a907a;
+    --mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;
+    --radius:6px;--radius-lg:12px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:16px;line-height:1.6}
+  main{max-width:720px;margin:0 auto;padding:56px 6vw 100px}
+  h1{font-size:clamp(28px,5vw,38px);font-weight:400;letter-spacing:-.02em;color:var(--text);margin-bottom:24px;line-height:1.25}
+  h2{font-size:clamp(19px,3vw,22px);font-weight:500;color:var(--green);margin:40px 0 14px;letter-spacing:-.01em}
+  p{color:var(--text-muted);line-height:1.8;margin-bottom:16px;max-width:100%}
+  strong{color:var(--text);font-weight:600}
+  em{color:var(--text)}
+  ul{margin:0 0 16px 1.3em;color:var(--text-muted);line-height:1.8}
+  li{margin-bottom:6px}
+  hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+  a{color:var(--green);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .back{display:inline-block;font-family:var(--mono);font-size:13px;color:var(--text-muted);margin-bottom:32px}
+  .back:hover{color:var(--green)}
+  footer{text-align:center;font-family:var(--mono);font-size:11px;color:var(--text-dim,#4a5e4a);padding:32px 6vw;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+<main>
+  <a href="/" class="back">← wallacedigital.au</a>
+  ${privacyBody}
+</main>
+<footer>Wallace Digital — ABN 51 232 784 636 — Western Australia</footer>
+</body>
+</html>`;
+
+const privacyOutPath = path.join(__dirname, "privacy.html");
+fs.writeFileSync(privacyOutPath, privacyHtml, "utf8");
+console.log(`✅ Built → ${privacyOutPath}`);
