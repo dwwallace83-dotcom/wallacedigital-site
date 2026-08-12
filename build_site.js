@@ -660,11 +660,42 @@ function mdToHtml(md) {
   return html;
 }
 
-const privacyMdPath = path.join(__dirname, "privacy-policy.md");
-const privacyMd = fs.readFileSync(privacyMdPath, "utf8");
-const privacyBody = mdToHtml(privacyMd);
+// ------------------------------------------------------------
+//  REGENERATION GUARD (task 1000084)
+//  privacy.html is the URL both the Google Play and Apple App
+//  Store listings depend on. A routine, unrelated site rebuild
+//  (e.g. re-running this script after an article/CONFIG edit)
+//  must never silently change it. Guard: only regenerate when
+//  privacy-policy.md's own content hash has changed since the
+//  last recorded (approved) hash, or when --force-privacy is
+//  passed explicitly. Everything else leaves privacy.html
+//  byte-for-byte untouched and says so.
+// ------------------------------------------------------------
+const crypto = require("crypto");
 
-const privacyHtml = `<!DOCTYPE html>
+const privacyMdPath = path.join(__dirname, "privacy-policy.md");
+const privacyOutPath = path.join(__dirname, "privacy.html");
+const privacyHashPath = path.join(__dirname, ".privacy-policy.sha256");
+const privacyLogPath = path.join(__dirname, "privacy_regen.log");
+
+const privacyMd = fs.readFileSync(privacyMdPath, "utf8");
+const privacySrcHash = crypto.createHash("sha256").update(privacyMd, "utf8").digest("hex");
+const lastApprovedHash = fs.existsSync(privacyHashPath)
+  ? fs.readFileSync(privacyHashPath, "utf8").trim()
+  : null;
+const forceRebuild = process.argv.includes("--force-privacy");
+
+function logPrivacyEvent(line) {
+  const stamp = new Date().toISOString();
+  fs.appendFileSync(privacyLogPath, `${stamp}  ${line}\n`, "utf8");
+}
+
+if (!forceRebuild && lastApprovedHash === privacySrcHash && fs.existsSync(privacyOutPath)) {
+  console.log(`⏭  privacy.html unchanged — privacy-policy.md hash matches last approved (${privacySrcHash.slice(0, 12)}...), skipped`);
+} else {
+  const privacyBody = mdToHtml(privacyMd);
+
+  const privacyHtml = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -709,6 +740,9 @@ const privacyHtml = `<!DOCTYPE html>
 </body>
 </html>`;
 
-const privacyOutPath = path.join(__dirname, "privacy.html");
-fs.writeFileSync(privacyOutPath, privacyHtml, "utf8");
-console.log(`✅ Built → ${privacyOutPath}`);
+  fs.writeFileSync(privacyOutPath, privacyHtml, "utf8");
+  fs.writeFileSync(privacyHashPath, privacySrcHash, "utf8");
+  const reason = forceRebuild ? "--force-privacy explicit flag" : "privacy-policy.md content changed";
+  logPrivacyEvent(`regenerated privacy.html (${reason}), new source hash ${privacySrcHash}`);
+  console.log(`✅ Built → ${privacyOutPath}  (${reason})`);
+}
