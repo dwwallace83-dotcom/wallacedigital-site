@@ -254,6 +254,19 @@ const CONFIG = {
 const fs = require("fs");
 const path = require("path");
 
+// Content that changes on its own cadence lives in content/*.json, not in
+// this CONFIG block, so the content-approval pipeline (task 1000144) can
+// publish to it without touching code. CONFIG.articles above stays as the
+// seed/fallback if the file is ever missing.
+const linkedinFeedPath = path.join(__dirname, "content", "linkedin-feed.json");
+if (fs.existsSync(linkedinFeedPath)) {
+  CONFIG.articles = JSON.parse(fs.readFileSync(linkedinFeedPath, "utf8"));
+}
+const changelogPath = path.join(__dirname, "content", "changelog.json");
+const CHANGELOG = fs.existsSync(changelogPath)
+  ? JSON.parse(fs.readFileSync(changelogPath, "utf8"))
+  : [];
+
 function esc(str) {
   return (str || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
@@ -429,7 +442,8 @@ const html = `<!DOCTYPE html>
     <li><a href="#services">Services</a></li>
     <li><a href="#products">Products</a></li>
     <li><a href="#work">Work</a></li>
-    <li><a href="#articles">Articles</a></li>
+    <li><a href="#articles">Articles</a></li>${CHANGELOG.length ? `
+    <li><a href="#changelog">Changelog</a></li>` : ""}
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -576,12 +590,28 @@ const html = `<!DOCTYPE html>
     <a href="${esc(a.url)}" target="_blank" class="article-card">
       <div class="article-date">${esc(a.date)}</div>
       <div class="article-title">${esc(a.title)}</div>
-      <div class="article-excerpt">${esc(a.excerpt)}</div>
+      ${a.excerpt ? `<div class="article-excerpt">${esc(a.excerpt)}</div>` : ""}
       <div class="article-arrow">Read on LinkedIn →</div>
     </a>`).join("")}
   </div>
 </section>
+${CHANGELOG.length ? `
+<div class="section-divider"></div>
 
+<!-- CHANGELOG -->
+<section id="changelog" style="max-width:1100px;margin:0 auto;">
+  <div class="section-label">Changelog</div>
+  <h2>Recent milestones</h2>
+  <div class="articles-grid">
+    ${CHANGELOG.map(c => `
+    <div class="article-card" style="cursor:default;">
+      <div class="article-date">${esc(c.date)}</div>
+      <div class="article-title">${esc(c.title)}</div>
+      <div class="article-excerpt">${esc(c.body)}</div>
+    </div>`).join("")}
+  </div>
+</section>
+` : ""}
 <div class="section-divider"></div>
 
 <!-- CONTACT -->
