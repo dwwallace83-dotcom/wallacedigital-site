@@ -11,7 +11,7 @@ const CONFIG = {
   name:         "Damian Wallace",
   tagline:      "Senior central planner by day. Independent operator and founder by build.\nI design infrastructure, develop products, and automate the gap between the two.",
   location:     "Perth, Western Australia",
-  email:        "Dwwallace83@gmail.com",  // TODO: switch to damian@wallacedigital.au once Cloudflare email routing is set up
+  email:        "damian@wallacedigital.au",  // Cloudflare Email Routing confirmed inbound-live (MX -> Cloudflare, matches admin_users.txt identity used across ChargeSafe/VULTURE)
   linkedin:     "https://www.linkedin.com/in/damian-wallace-0b41766a/",
   abn:          "ABN active",
 
@@ -592,7 +592,7 @@ const html = `<!DOCTYPE html>
   <div class="contact-links">
     <a href="mailto:${esc(CONFIG.email)}" class="btn btn-primary">${esc(CONFIG.email)}</a>
     <a href="${esc(CONFIG.linkedin)}" target="_blank" class="btn btn-ghost">LinkedIn</a>
-    <span class="btn btn-ghost" style="opacity:0.4;cursor:default;">ChargeSafe — Coming Soon</span>
+    <a href="https://chargesafe.au" target="_blank" class="btn btn-ghost">ChargeSafe →</a>
   </div>
 </section>
 
