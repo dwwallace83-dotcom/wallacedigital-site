@@ -6,4 +6,5 @@ node_modules/
 # Nightly job operational state/log — not site content, not source
 scripts/.feed-refresh-state.json
 linkedin_feed_refresh.log
+linkedin_feed_refresh_stdout.log
 privacy_regen.log
