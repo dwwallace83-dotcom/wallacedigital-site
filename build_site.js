@@ -7,40 +7,58 @@
 
 const CONFIG = {
 
+  // ── SITE META (for Google indexing) ──────────────────────
+  baseUrl:      "https://wallacedigital.au",
+  metaTitle:    "Wallace Digital — Damian Wallace | Project Delivery & Operations Improvement",
+  metaDesc:     "I find where time and money are being lost, and lead the fix. Project delivery and operations improvement for mining and heavy industry — Perth-based.",
+
   // ── PERSONAL ────────────────────────────────────────────
   name:         "Damian Wallace",
-  tagline:      "Senior central planner by day. Independent operator and founder by build.\nI design infrastructure, develop products, and automate the gap between the two.",
+  headlineMain:      "I find where time and money are being lost —",
+  headlineHighlight: "and lead the fix.",
+  tagline:      "Project delivery and operations improvement for mining and heavy industry, from someone who started on the tools and now runs multi-million-dollar projects.",
+  strapline:    "Solve the right problem. Spend money where it counts. Bring the team with you.",
   location:     "Perth, Western Australia",
-  email:        "damian@wallacedigital.au",  // Cloudflare Email Routing confirmed inbound-live (MX -> Cloudflare, matches admin_users.txt identity used across ChargeSafe/VULTURE)
+  // NOTE (Nov 2026 refresh): brief asked for hello@wallacedigital.au everywhere.
+  // Task 1000144 (7 Sep 2026) had switched this to damian@wallacedigital.au after
+  // confirming damian@ has live Cloudflare Email Routing and hello@ did not have
+  // a routing rule at that time. Flagged for Damian to confirm hello@ is now
+  // routed before relying on this — see session summary.
+  email:        "hello@wallacedigital.au",
   linkedin:     "https://www.linkedin.com/in/damian-wallace-0b41766a/",
   abn:          "ABN active",
 
+  // ── HOW I WORK ───────────────────────────────────────────
+  howIWork:     "Every job starts with the problem statement, not the solution. I map the problem, source the options, work with the team to pick the right one, then keep asking: is this still the problem we're solving? That loop is where projects stay on track and savings are found.",
+
   // ── HERO STATS ───────────────────────────────────────────
   stats: [
-    { number: "15+", label: "Years in planning and project management" },
-    { number: "2",   label: "Live digital products" },
-    { number: "1",   label: "Active ABN, Wallace Digital" },
+    { number: "15+",    label: "Years in planning and project management" },
+    { number: "$2.6M+", label: "Excavator relocation" },
+    { number: "MBA",    label: "Distinction average" },
   ],
 
   // ── ABOUT TEXT ───────────────────────────────────────────
   // Each string = one paragraph
   about: [
-    "I'm a systems thinker who has spent 15 years in mining operations, starting as a heavy diesel mechanic and progressing into maintenance planning and operational improvement.",
-    "My consistent approach has been to identify inefficient or broken systems and design practical, lasting solutions. In my current role as Central Planner at Macmahon, I led the replacement of chaotic flagged-email workflows with a fully structured digital ticketing system — implementing online forms, automated workflows, and approval processes that now serve multiple users across the department and remote sites.",
-    "I apply the same systems mindset across other domains. For the past five years I've run a small beekeeping operation with 12 hives across five locations — managing a living biological system that requires constant observation, adaptation, and optimisation.",
-    "I'm now extending this approach into digital systems — developing AI-powered tools including ChargeSafe, a smart EV charger directory that routes users based on real-time status and congestion, and Zed83, a personal AI assistant that acts as an intelligent central layer to monitor, integrate information, and surface timely actions.",
-    "I'm in the final stages of completing my MBA and continue to explore how practical, hands-on systems thinking combined with modern tools can create better outcomes in operations and beyond.",
+    "I'm a systems thinker with 15 years in mining operations. I started as a heavy duty diesel mechanic, led crews as a leading hand, and moved into maintenance planning and operational improvement.",
+    "As Central Planner at Macmahon, I replaced chaotic flagged-email workflows with a structured digital ticketing system, with online forms, automated workflows and approvals now used across the department and remote sites. I'm also leading a $2.6M+ excavator relocation across six-plus suppliers.",
+    "I've just completed my MBA with a Distinction average, so the commercial side gets the same attention as the technical side.",
   ],
   // ── YOUR PHOTO ───────────────────────────────────────────
   // Local file path OR a URL (Immich share link, Cloudflare image, etc.)
   // Leave empty "" to show the placeholder honeycomb graphic
-  photo: "./images/damian.jpg",
+  photo: "./images/DamianPro2026.jpeg",
   // Example — local file:  photo: "./images/damian.jpg"
   // Example — Immich share: photo: "http://192.168.4.140:2283/api/asset/YOUR-ASSET-ID/original"
   // Example — Cloudflare:  photo: "https://imagedelivery.net/YOUR-ACCOUNT/photo/public"
 
   // ── QUALIFICATIONS ───────────────────────────────────────
   qualifications: [
+    {
+      title: "MBA (Distinction average)",
+      org:   "",
+    },
     {
       title: "Certificate IV in Project Management Practice",
       org:   "TAFE / BSB — Verified on LinkedIn",
@@ -50,107 +68,88 @@ const CONFIG = {
       org:   "Macmahon Holdings — Mining & Infrastructure",
     },
     {
-      title: "Self-Directed — Mobile, Backend, AI Tooling",
-      org:   "React Native · Python · Node.js · Cloudflare · Docker",
+      title: "Trade Certificate, Mechanical (Plant Mechanic)",
+      org:   "",
     },
     // Add more like: { title: "Your Cert", org: "Issuer" },
   ],
 
-  // ── SERVICES ────────────────────────────────────────────
+  // ── SERVICES ("How I can help") ──────────────────────────
   services: [
     {
       icon:  "📐",
-      title: "Planning & Scheduling",
-      desc:  "Complex project planning from first principles — programme development, schedule health, resource levelling, and constraint analysis.",
+      title: "Project delivery",
+      desc:  "Scoping, programme development, supplier coordination and cost tracking from kick-off to handover. Primavera P6 / MS Project.",
       items: [
+        "Scoping & programme development",
+        "Supplier coordination",
+        "Cost tracking",
         "Primavera P6 / MS Project",
-        "Programme development",
-        "Schedule compression & recovery",
-        "Mining, construction, infrastructure",
-        "Stakeholder reporting",
       ],
     },
     {
-      icon:  "⚙️",
-      title: "Digital Automation",
-      desc:  "Business process automation using Microsoft Power Platform, bespoke API pipelines, and AI tooling. From approval flows to data reporting.",
+      icon:  "🔍",
+      title: "Finding the bottlenecks",
+      desc:  "Pinpointing where established processes lose the most time and money, then fixing them.",
       items: [
-        "Power Automate flows",
-        "SharePoint + Teams integration",
-        "Forms → approval → notification",
-        "Custom Python / Node.js scripts",
-        "AI agent integration",
+        "Process mapping",
+        "Root-cause analysis",
+        "Time & cost loss diagnosis",
+        "Practical fixes, not just reports",
       ],
     },
     {
       icon:  "🛠️",
-      title: "Product Development",
-      desc:  "End-to-end mobile and web product build — from concept to deployed app. React Native, Expo, Xano backend, Cloudflare infrastructure.",
+      title: "Maintenance and asset strategy",
+      desc:  "Shutdowns, service strategies and warranty recovery that keep fleets running and budgets intact.",
       items: [
-        "React Native (Expo)",
-        "Xano backend / REST APIs",
-        "Cloudflare Tunnels & DNS",
-        "Tailscale remote networking",
-        "Docker / NAS / self-hosted",
+        "Shutdown planning",
+        "Service strategy",
+        "Warranty recovery",
+        "Fleet uptime",
       ],
     },
     {
-      icon:  "🏗️",
-      title: "Infrastructure & Renovation",
-      desc:  "Hands-on residential renovation experience — planning, sequencing, and delivery. The same discipline that runs a mining programme runs a reno.",
+      icon:  "📦",
+      title: "Procurement and sourcing",
+      desc:  "OEM versus aftermarket calls and supplier management. Sourced one critical component for about $12.5k against a $33k OEM quote.",
       items: [
-        "Project sequencing",
-        "Trade coordination",
-        "Budget tracking",
-        "Before/after documentation",
+        "OEM vs aftermarket evaluation",
+        "Supplier management",
+        "Cost-down sourcing",
+        "Component-level cost analysis",
       ],
     },
     {
-      icon:  "🐝",
-      title: "Apiculture",
-      desc:  "Hobbyist beekeeper with hives in the Perth region. Available for consultation, local honey, or just a conversation about building healthy colonies.",
+      icon:  "⚙️",
+      title: "Process automation",
+      desc:  "Forms, approval flows and reporting with Power Automate, SharePoint and AI tools.",
       items: [
-        "Perth metro hive management",
-        "Colony health assessment",
-        "Local raw honey",
-        "New beekeeper mentoring",
+        "Power Automate flows",
+        "SharePoint + Teams integration",
+        "Approval workflows",
+        "AI-assisted reporting",
       ],
     },
     {
-      icon:  "🤖",
-      title: "AI Integration Consulting",
-      desc:  "Real-world experience integrating large language models into operational workflows. No hype — just working systems built to run autonomously.",
+      icon:  "🎯",
+      title: "Expert advisory",
+      desc:  "Paid calls and short engagements for investors, consultancies and operators.",
       items: [
-        "Telegram bot / assistant builds",
-        "Groq / Anthropic API integration",
-        "Data retrieval + scheduling",
-        "Voice in/out pipelines",
-        "Private, self-hosted deployments",
+        "Investor due-diligence calls",
+        "Short consulting engagements",
+        "Operator advisory",
+        "Mining & heavy industry expertise",
       ],
     },
   ],
 
-  // ── PRODUCTS ────────────────────────────────────────────
-  products: [
-    {
-      name:     "ChargeSafe",
-      badge:    "In development",
-      badgeType:"active",   // "active" = green  |  "internal" = amber
-      desc:     "Australian EV charger finder and confidence app. Not just a directory — ChargeSafe gives EV drivers real-time charger status, trip energy planning, and confidence scoring so you never arrive at a broken charger unprepared.",
-      stack:    ["React Native", "Expo", "Xano", "Google Maps API", "Chargefox API"],
-      link:     "https://chargesafe.au",
-      linkLabel:"chargesafe.au →",
-    },
-    {
-      name:     "Zed83",
-      badge:    "Private / internal",
-      badgeType:"internal",
-      desc:     "A personal AI assistant operating via Telegram with voice in/out, Garmin health integration, Google Calendar sync, real-time data feeds, and autonomous nightly maintenance. Built to run 24/7 without intervention.",
-      stack:    ["Python", "Groq", "Anthropic", "Telegram", "Garmin", "Docker"],
-      link:     "",   // leave empty to show "capacity demonstrated on request"
-      linkLabel:"",
-    },
-  ],
+  // ── SIDE PROJECTS ─────────────────────────────────────────
+  sideProjects: {
+    text: "ChargeSafe, an EV trip planner for WA, built in my own time.",
+    link: "https://chargesafe.au",
+    linkLabel: "chargesafe.au →",
+  },
 
   // ── WORK / GALLERY ───────────────────────────────────────
   // IMAGES: copy your photos from C:\Users\Damian\Downloads\damo photos
@@ -305,7 +304,9 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wallace Digital — Build. Plan. Ship.</title>
+<title>${esc(CONFIG.metaTitle)}</title>
+<meta name="description" content="${esc(CONFIG.metaDesc)}">
+<link rel="canonical" href="${esc(CONFIG.baseUrl)}/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -338,7 +339,10 @@ const html = `<!DOCTYPE html>
   #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:80px;position:relative}
   .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
   .hero-tagline{font-size:15px;color:var(--text-muted);margin-top:28px;max-width:460px;line-height:1.75}
+  .hero-strap{font-family:var(--mono);font-size:13px;color:var(--green-dim);margin-top:18px;letter-spacing:.02em;max-width:460px}
   .hero-ctas{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap}
+  #how-i-work{max-width:800px}
+  #how-i-work p{font-size:17px;max-width:100%;color:var(--text-muted)}
   .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:var(--radius);font-size:14px;font-weight:500;text-decoration:none;transition:all .2s;cursor:pointer;border:none}
   .btn-primary{background:var(--green);color:#0a0d0a}
   .btn-primary:hover{background:#5dff7f}
@@ -372,19 +376,6 @@ const html = `<!DOCTYPE html>
   .service-list li{font-size:13px;color:var(--text-muted);padding:5px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
   .service-list li:last-child{border-bottom:none}
   .service-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--green-dim);flex-shrink:0}
-  .products-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-  .product-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px;transition:all .25s;position:relative;overflow:hidden}
-  .product-card.featured{border-color:var(--border-accent)}
-  .product-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--green)}
-  .product-card:hover{background:var(--bg-card-hover);border-color:var(--border-accent)}
-  .product-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:100px;margin-bottom:20px}
-  .badge-active{background:rgba(76,255,110,0.1);color:var(--green);border:1px solid rgba(76,255,110,0.2)}
-  .badge-internal{background:rgba(255,180,0,0.08);color:#c89a00;border:1px solid rgba(255,180,0,0.15)}
-  .badge-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-  .product-name{font-size:24px;font-weight:500;margin-bottom:10px;letter-spacing:-.02em}
-  .product-desc{font-size:14px;color:var(--text-muted);line-height:1.7;max-width:100%;margin-bottom:24px}
-  .product-stack{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
-  .stack-tag{font-family:var(--mono);font-size:11px;padding:3px 10px;border-radius:100px;background:transparent;border:1px solid var(--border-accent);color:var(--text-dim)}
   .product-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--green);text-decoration:none;font-weight:500;transition:gap .2s}
   .product-link:hover{gap:10px}
   .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -418,12 +409,8 @@ const html = `<!DOCTYPE html>
   .footer-links a{font-size:12px;color:var(--text-dim);text-decoration:none;transition:color .2s}
   .footer-links a:hover{color:var(--text-muted)}
   .section-divider{width:100%;height:1px;background:var(--border);max-width:1100px;margin:0 auto}
-  .terminal{background:#080c08;border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;font-family:var(--mono);font-size:13px;line-height:1.8;margin:32px 0}
-  .t-prompt{color:var(--green)}.t-cmd{color:var(--text)}.t-out{color:var(--text-muted)}
-  @keyframes blink{50%{opacity:0}}
-  .cursor{display:inline-block;width:2px;height:1em;background:var(--green);margin-left:2px;vertical-align:middle;animation:blink 1s step-end infinite}
   @media(max-width:768px){
-    .hero-grid,.about-grid,.products-grid,.articles-grid{grid-template-columns:1fr}
+    .hero-grid,.about-grid,.articles-grid{grid-template-columns:1fr}
     .services-grid{grid-template-columns:1fr}
     .work-grid{grid-template-columns:1fr}
     .work-item.wide{grid-column:span 1}
@@ -439,10 +426,11 @@ const html = `<!DOCTYPE html>
   <a href="#" class="nav-logo">WD /</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#products">Products</a></li>
+    <li><a href="#how-i-work">How I work</a></li>
+    <li><a href="#services">How I can help</a></li>
+    <li><a href="#products">Side projects</a></li>
     <li><a href="#work">Work</a></li>
-    <li><a href="#articles">Articles</a></li>${CHANGELOG.length ? `
+    <li><a href="#articles">Recent thinking</a></li>${CHANGELOG.length ? `
     <li><a href="#changelog">Changelog</a></li>` : ""}
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -453,11 +441,12 @@ const html = `<!DOCTYPE html>
   <div class="hero-grid">
     <div>
       <div class="section-label">${esc(CONFIG.location)}</div>
-      <h1>Build.<br><em>Plan.</em><br>Ship.</h1>
-      <p class="hero-tagline">${esc(CONFIG.tagline).replace(/\n/g,"<br>")}</p>
+      <h1>${esc(CONFIG.headlineMain)}<br><em>${esc(CONFIG.headlineHighlight)}</em></h1>
+      <p class="hero-tagline">${esc(CONFIG.tagline)}</p>
+      <p class="hero-strap">${esc(CONFIG.strapline)}</p>
       <div class="hero-ctas">
-        <a href="#services" class="btn btn-primary">What I offer</a>
-        <a href="#products" class="btn btn-ghost">See the products</a>
+        <a href="#services" class="btn btn-primary">How I can help</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
       </div>
     </div>
     <div class="hero-stats">
@@ -478,6 +467,15 @@ const html = `<!DOCTYPE html>
 
 <div class="section-divider"></div>
 
+<!-- HOW I WORK -->
+<section id="how-i-work" style="max-width:1100px;margin:0 auto;">
+  <div class="section-label">Approach</div>
+  <h2>How I work</h2>
+  <p>${esc(CONFIG.howIWork)}</p>
+</section>
+
+<div class="section-divider"></div>
+
 <!-- ABOUT -->
 <section id="about" style="max-width:1100px;margin:0 auto;">
   <div class="section-label">About</div>
@@ -493,7 +491,7 @@ const html = `<!DOCTYPE html>
           <div class="qual-dot"></div>
           <div>
             <div class="qual-title">${esc(q.title)}</div>
-            <div class="qual-org">${esc(q.org)}</div>
+            ${q.org ? `<div class="qual-org">${esc(q.org)}</div>` : ""}
           </div>
         </div>`).join("")}
         <a href="${esc(CONFIG.linkedin)}" target="_blank" class="btn btn-ghost" style="margin-top:8px;font-size:13px;">
@@ -508,8 +506,8 @@ const html = `<!DOCTYPE html>
 
 <!-- SERVICES -->
 <section id="services" style="max-width:1100px;margin:0 auto;">
-  <div class="section-label">Services</div>
-  <h2>What I can do for you</h2>
+  <div class="section-label">How I can help</div>
+  <h2>How I can help</h2>
   <div class="services-grid">
     ${CONFIG.services.map(s => `
     <div class="service-card">
@@ -521,40 +519,14 @@ const html = `<!DOCTYPE html>
       </ul>
     </div>`).join("")}
   </div>
-  <div class="terminal">
-    <div><span class="t-prompt">damian@wallacedigital:~$</span> <span class="t-cmd">cat capabilities.txt</span></div>
-    <div class="t-out">Plan complex operations &nbsp;&nbsp;&nbsp;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0; 15+ yrs</div>
-    <div class="t-out">Build digital products &nbsp;&nbsp;&nbsp;&nbsp;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A1;&#x25A1; active</div>
-    <div class="t-out">Automate workflows &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A1;&#x25A1; active</div>
-    <div class="t-out">Self-hosted infra &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A0;&#x25A1;&#x25A1;&#x25A1;&#x25A1; growing</div>
-    <div><span class="t-prompt">$</span> <span class="cursor"></span></div>
-  </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- PRODUCTS -->
+<!-- SIDE PROJECTS -->
 <section id="products" style="max-width:1100px;margin:0 auto;">
-  <div class="section-label">Products</div>
-  <h2>Built by Wallace Digital</h2>
-  <div class="products-grid">
-    ${CONFIG.products.map((p, i) => `
-    <div class="product-card${i === 0 ? " featured" : ""}">
-      <div class="product-badge badge-${esc(p.badgeType)}">
-        <div class="badge-dot"></div>
-        ${esc(p.badge)}
-      </div>
-      <div class="product-name">${esc(p.name)}</div>
-      <p class="product-desc">${esc(p.desc)}</p>
-      <div class="product-stack">
-        ${p.stack.map(t => `<span class="stack-tag">${esc(t)}</span>`).join("")}
-      </div>
-      ${p.link
-        ? `<a href="${esc(p.link)}" target="_blank" class="product-link">${esc(p.linkLabel)}</a>`
-        : `<span style="font-size:13px;color:var(--text-dim);">Private deployment — capacity demonstrated on request</span>`
-      }
-    </div>`).join("")}
-  </div>
+  <div class="section-label">Side projects</div>
+  <p style="font-size:16px;">${esc(CONFIG.sideProjects.text)} <a href="${esc(CONFIG.sideProjects.link)}" target="_blank" class="product-link">${esc(CONFIG.sideProjects.linkLabel)}</a></p>
 </section>
 
 <div class="section-divider"></div>
@@ -583,17 +555,19 @@ const html = `<!DOCTYPE html>
 
 <!-- ARTICLES -->
 <section id="articles" style="max-width:1100px;margin:0 auto;">
-  <div class="section-label">Writing</div>
-  <h2>Published on LinkedIn</h2>
-  <div class="articles-grid">
+  <div class="section-label">Recent thinking</div>
+  <h2 style="margin-bottom:8px;">Recent thinking</h2>
+  <p id="feed-status" style="font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-bottom:32px;">Recent highlights</p>
+  <div class="articles-grid" id="articles-grid">
     ${CONFIG.articles.map(a => `
-    <a href="${esc(a.url)}" target="_blank" class="article-card">
+    <a href="${esc(a.url)}" target="_blank" rel="noopener" class="article-card">
       <div class="article-date">${esc(a.date)}</div>
       <div class="article-title">${esc(a.title)}</div>
       ${a.excerpt ? `<div class="article-excerpt">${esc(a.excerpt)}</div>` : ""}
       <div class="article-arrow">Read on LinkedIn →</div>
     </a>`).join("")}
   </div>
+  <a href="${esc(CONFIG.linkedin)}" target="_blank" class="btn btn-ghost" style="margin-top:32px;">See all on LinkedIn →</a>
 </section>
 ${CHANGELOG.length ? `
 <div class="section-divider"></div>
@@ -618,11 +592,10 @@ ${CHANGELOG.length ? `
 <section id="contact">
   <div class="section-label" style="justify-content:center;">Contact</div>
   <h2>Let's work together</h2>
-  <p>Available for consulting, planning contracts, automation projects, or product partnerships. Perth-based, remote-capable.</p>
+  <p>Available for project roles, planning contracts and advisory work. Perth-based.</p>
   <div class="contact-links">
     <a href="mailto:${esc(CONFIG.email)}" class="btn btn-primary">${esc(CONFIG.email)}</a>
     <a href="${esc(CONFIG.linkedin)}" target="_blank" class="btn btn-ghost">LinkedIn</a>
-    <a href="https://chargesafe.au" target="_blank" class="btn btn-ghost">ChargeSafe →</a>
   </div>
 </section>
 
@@ -636,6 +609,27 @@ ${CHANGELOG.length ? `
   </ul>
 </footer>
 
+<script>
+(function(){
+  var grid = document.getElementById('articles-grid');
+  var status = document.getElementById('feed-status');
+  if (!grid) return;
+  function esc(s){ return String(s == null ? "" : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function attr(s){ return esc(s).replace(/"/g,'&quot;'); }
+  fetch('/api/articles').then(function(r){ return r.json(); }).then(function(data){
+    if (!data || !Array.isArray(data.articles) || !data.articles.length) return;
+    grid.innerHTML = data.articles.map(function(a){
+      return '<a href="'+attr(a.url)+'" target="_blank" rel="noopener" class="article-card">'
+        + '<div class="article-date">'+esc(a.date)+'</div>'
+        + '<div class="article-title">'+esc(a.title)+'</div>'
+        + (a.excerpt ? '<div class="article-excerpt">'+esc(a.excerpt)+'</div>' : '')
+        + '<div class="article-arrow">Read on LinkedIn →</div>'
+        + '</a>';
+    }).join('');
+    if (status) status.textContent = data.source === 'live' ? 'Live from LinkedIn' : 'Recent highlights';
+  }).catch(function(){ /* keep the server-rendered fallback cards already in the page */ });
+})();
+</script>
 </body>
 </html>`;
 
@@ -645,6 +639,175 @@ console.log(`✅ Built → ${outPath}`);
 console.log(`   ${CONFIG.work.filter(w => !w.image).length} work image(s) still need paths`);
 console.log(`   ${CONFIG.articles.filter(a => a.url.includes("YOUR")).length} article URL(s) still placeholder`);
 if (!CONFIG.photo) console.log(`   Profile photo not set (CONFIG.photo is empty)`);
+
+// ============================================================
+//  SEO: robots.txt + sitemap.xml
+// ============================================================
+
+const robotsTxt = `User-agent: *
+Allow: /
+
+Sitemap: ${CONFIG.baseUrl}/sitemap.xml
+`;
+fs.writeFileSync(path.join(__dirname, "robots.txt"), robotsTxt, "utf8");
+
+const todayIso = new Date().toISOString().slice(0, 10);
+const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${CONFIG.baseUrl}/</loc>
+    <lastmod>${todayIso}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+`;
+fs.writeFileSync(path.join(__dirname, "sitemap.xml"), sitemapXml, "utf8");
+console.log(`✅ Built → robots.txt, sitemap.xml`);
+
+// ============================================================
+//  LIVE LINKEDIN FEED: Cloudflare Pages Function
+//  CONFIG.articles above is already sourced from
+//  content/linkedin-feed.json (task 1000144's content-approval
+//  pipeline) when that file exists, so it stays the single
+//  source of truth for the fallback list baked in below.
+// ============================================================
+
+const fallbackArticles = CONFIG.articles.map(a => ({
+  title: a.title,
+  url:   a.url,
+  date:  a.date,
+  excerpt: a.excerpt,
+}));
+
+const articlesFunctionJs = `// AUTO-GENERATED by build_site.js from CONFIG.articles — do not edit by hand.
+// CONFIG.articles is itself loaded from content/linkedin-feed.json when that
+// file exists (task 1000144's content-approval pipeline), so editing that
+// file (via the Telegram approve flow or by hand) and re-running
+// node build_site.js is how you update the fallback list here.
+//
+// Serves the "Recent thinking" feed for wallacedigital.au.
+// If env.LINKEDIN_FEED_URL is set (an RSS or JSON Feed URL, e.g. from rss.app
+// pointed at Damian's LinkedIn profile activity), fetches + parses it server-side
+// and caches the result for 30 minutes. Falls back to the list below —
+// the same human-curated list task 1000144 publishes to — whenever the live
+// feed isn't configured, fails to fetch, or returns nothing usable.
+
+const FALLBACK_ARTICLES = ${JSON.stringify(fallbackArticles, null, 2)};
+
+export async function onRequestGet(context) {
+  const feedUrl = context.env && context.env.LINKEDIN_FEED_URL;
+
+  if (!feedUrl) {
+    return jsonResponse({ source: "fallback", articles: FALLBACK_ARTICLES });
+  }
+
+  try {
+    const cache = caches.default;
+    const cacheKey = new Request("https://wallacedigital.au/__linkedin-feed-cache");
+    const cached = await cache.match(cacheKey);
+    if (cached) return cached;
+
+    const res = await fetch(feedUrl, {
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; WallaceDigitalBot/1.0)" },
+    });
+    if (!res.ok) throw new Error("feed fetch failed: " + res.status);
+    const raw = await res.text();
+    const parsed = parseFeed(raw);
+
+    const articles = parsed.length ? parsed : FALLBACK_ARTICLES;
+    const response = jsonResponse({ source: parsed.length ? "live" : "fallback", articles });
+    context.waitUntil(cache.put(cacheKey, response.clone()));
+    return response;
+  } catch (err) {
+    return jsonResponse({
+      source: "fallback",
+      articles: FALLBACK_ARTICLES,
+      note: String((err && err.message) || err),
+    });
+  }
+}
+
+function jsonResponse(obj) {
+  return new Response(JSON.stringify(obj), {
+    status: 200,
+    headers: {
+      "content-type": "application/json",
+      "cache-control": "public, max-age=1800",
+    },
+  });
+}
+
+// Accepts RSS 2.0 XML or a JSON Feed / generic JSON array — covers rss.app,
+// FetchRSS, and most "LinkedIn profile to feed" bridge services.
+function parseFeed(raw) {
+  const trimmed = raw.trim();
+  let list = [];
+
+  if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
+    try {
+      const data = JSON.parse(trimmed);
+      const arr = Array.isArray(data) ? data : (data.items || data.articles || []);
+      list = arr.map(it => ({
+        title: it.title || it.name || "",
+        url: it.url || it.link || it.permalink || "",
+        rawDate: it.date_published || it.pubDate || it.date || it.published || "",
+        excerpt: "",
+      }));
+    } catch {
+      list = [];
+    }
+  } else {
+    const blocks = [...trimmed.matchAll(/<item\\b[\\s\\S]*?<\\/item>/gi)].map(m => m[0]);
+    list = blocks.map(block => ({
+      title: decodeEntities(textOf(block, "title")),
+      url: (textOf(block, "link") || hrefOf(block, "link")).trim(),
+      rawDate: textOf(block, "pubDate") || textOf(block, "dc:date") || textOf(block, "published"),
+      excerpt: "",
+    }));
+  }
+
+  return list
+    .filter(a => a.title && a.url)
+    .map(a => ({
+      title: a.title,
+      url: a.url,
+      date: formatDate(a.rawDate),
+      excerpt: "",
+      _sort: Date.parse(a.rawDate) || 0,
+    }))
+    .sort((a, b) => b._sort - a._sort)
+    .map(({ _sort, ...rest }) => rest);
+}
+
+function textOf(block, tag) {
+  const m = block.match(new RegExp("<" + tag + "[^>]*>(?:<!\\[CDATA\\[)?([\\s\\S]*?)(?:\\]\\]>)?<\\/" + tag + ">", "i"));
+  return m ? m[1].trim() : "";
+}
+function hrefOf(block, tag) {
+  const m = block.match(new RegExp("<" + tag + "[^>]*href=[\\"']([^\\"']+)[\\"']", "i"));
+  return m ? m[1] : "";
+}
+function decodeEntities(str) {
+  return str
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+function formatDate(raw) {
+  if (!raw) return "";
+  const d = new Date(raw);
+  if (isNaN(d.getTime())) return raw;
+  return d.toLocaleDateString("en-AU", { year: "numeric", month: "short" });
+}
+`;
+
+const functionsDir = path.join(__dirname, "functions", "api");
+fs.mkdirSync(functionsDir, { recursive: true });
+fs.writeFileSync(path.join(functionsDir, "articles.js"), articlesFunctionJs, "utf8");
+console.log(`✅ Built → functions/api/articles.js (live LinkedIn feed, env.LINKEDIN_FEED_URL not yet set = fallback mode)`);
 
 // ============================================================
 //  PRIVACY POLICY PAGE
