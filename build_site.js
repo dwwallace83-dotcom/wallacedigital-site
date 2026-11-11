@@ -25,7 +25,8 @@ const CONFIG = {
   // a routing rule at that time. Flagged for Damian to confirm hello@ is now
   // routed before relying on this — see session summary.
   email:        "hello@wallacedigital.au",
-  linkedin:     "https://www.linkedin.com/in/damian-wallace-0b41766a/",
+  linkedin:         "https://www.linkedin.com/in/damian-wallace-0b41766a/",
+  linkedinArticles: "https://www.linkedin.com/in/damian-wallace-0b41766a/recent-activity/articles/",
   abn:          "ABN active",
 
   // ── HOW I WORK ───────────────────────────────────────────
@@ -567,7 +568,7 @@ const html = `<!DOCTYPE html>
       <div class="article-arrow">Read on LinkedIn →</div>
     </a>`).join("")}
   </div>
-  <a href="${esc(CONFIG.linkedin)}" target="_blank" class="btn btn-ghost" style="margin-top:32px;">See all on LinkedIn →</a>
+  <a href="${esc(CONFIG.linkedinArticles)}" target="_blank" class="btn btn-ghost" style="margin-top:32px;">See all on LinkedIn →</a>
 </section>
 ${CHANGELOG.length ? `
 <div class="section-divider"></div>
@@ -738,71 +739,7 @@ function jsonResponse(obj) {
   });
 }
 
-// Accepts RSS 2.0 XML or a JSON Feed / generic JSON array — covers rss.app,
-// FetchRSS, and most "LinkedIn profile to feed" bridge services.
-function parseFeed(raw) {
-  const trimmed = raw.trim();
-  let list = [];
-
-  if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
-    try {
-      const data = JSON.parse(trimmed);
-      const arr = Array.isArray(data) ? data : (data.items || data.articles || []);
-      list = arr.map(it => ({
-        title: it.title || it.name || "",
-        url: it.url || it.link || it.permalink || "",
-        rawDate: it.date_published || it.pubDate || it.date || it.published || "",
-        excerpt: "",
-      }));
-    } catch {
-      list = [];
-    }
-  } else {
-    const blocks = [...trimmed.matchAll(/<item\\b[\\s\\S]*?<\\/item>/gi)].map(m => m[0]);
-    list = blocks.map(block => ({
-      title: decodeEntities(textOf(block, "title")),
-      url: (textOf(block, "link") || hrefOf(block, "link")).trim(),
-      rawDate: textOf(block, "pubDate") || textOf(block, "dc:date") || textOf(block, "published"),
-      excerpt: "",
-    }));
-  }
-
-  return list
-    .filter(a => a.title && a.url)
-    .map(a => ({
-      title: a.title,
-      url: a.url,
-      date: formatDate(a.rawDate),
-      excerpt: "",
-      _sort: Date.parse(a.rawDate) || 0,
-    }))
-    .sort((a, b) => b._sort - a._sort)
-    .map(({ _sort, ...rest }) => rest);
-}
-
-function textOf(block, tag) {
-  const m = block.match(new RegExp("<" + tag + "[^>]*>(?:<!\\[CDATA\\[)?([\\s\\S]*?)(?:\\]\\]>)?<\\/" + tag + ">", "i"));
-  return m ? m[1].trim() : "";
-}
-function hrefOf(block, tag) {
-  const m = block.match(new RegExp("<" + tag + "[^>]*href=[\\"']([^\\"']+)[\\"']", "i"));
-  return m ? m[1] : "";
-}
-function decodeEntities(str) {
-  return str
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'");
-}
-function formatDate(raw) {
-  if (!raw) return "";
-  const d = new Date(raw);
-  if (isNaN(d.getTime())) return raw;
-  return d.toLocaleDateString("en-AU", { year: "numeric", month: "short" });
-}
-`;
+${fs.readFileSync(path.join(__dirname, "scripts", "parse-feed.js"), "utf8")}`;
 
 const functionsDir = path.join(__dirname, "functions", "api");
 fs.mkdirSync(functionsDir, { recursive: true });

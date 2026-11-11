@@ -1,0 +1,4 @@
+{
+  "feedUrl": "",
+  "_comment": "Set feedUrl to an RSS or JSON Feed URL for Damian's LinkedIn profile activity (e.g. from rss.app's free 'LinkedIn Profile' feed option) to let the nightly refresh job (scripts/refresh-linkedin-feed.js) discover new articles automatically. Leave blank and it falls back to a best-effort fetch of the public articles page, which is likely to fail silently (LinkedIn blocks that for unauthenticated/bot requests) — see project notes."
+}
