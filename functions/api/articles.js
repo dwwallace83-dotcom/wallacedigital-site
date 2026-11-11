@@ -13,40 +13,34 @@
 
 const FALLBACK_ARTICLES = [
   {
-    "title": "What Paris-Roubaix, Team Size, and Toxic Charity Have in Common",
-    "url": "https://www.linkedin.com/pulse/what-parisroubaix-team-size-toxic-charity-have-common-damian-wallace-lvrqc/",
-    "date": "2026",
-    "excerpt": "Three things that look unrelated on the surface — a bike race, headcount decisions, and charitable giving — all share the same structural flaw. A look at how good intentions without the right system produce bad outcomes."
+    "title": "Finishing Early Is Not Always About Working Faster",
+    "url": "https://www.linkedin.com/pulse/finishing-early-always-working-faster-damian-wallace-km1ic/",
+    "date": "27 Oct 2026",
+    "excerpt": ""
   },
   {
-    "title": "How a Chicken Tariff Gave America Massive Pickup Trucks",
-    "url": "https://www.linkedin.com/pulse/how-chicken-tariff-gave-america-massive-pickup-trucks-damian-wallace-p6okc/",
-    "date": "2026",
-    "excerpt": "The unexpected origin story of the American ute — a 1960s trade dispute that reshaped an entire vehicle category for decades. A lesson in how policy creates permanent market structures nobody planned for."
+    "title": "The Cost of Precision Is Often Paid in the Margins",
+    "url": "https://www.linkedin.com/pulse/cost-precision-often-paid-margins-damian-wallace-5vpxc/",
+    "date": "23 Oct 2026",
+    "excerpt": ""
   },
   {
-    "title": "When Mastery Removes the Need to Prove Anything — Restraint Starts Here",
-    "url": "https://www.linkedin.com/pulse/when-mastery-removes-need-prove-anything-restraint-starts-wallace-pikdc/",
-    "date": "2026",
-    "excerpt": "The most capable people in the room are often the quietest. On the relationship between genuine expertise, ego, and why restraint is a signal of competence rather than a lack of it."
+    "title": "When the person everyone loves is quietly hurting the team",
+    "url": "https://www.linkedin.com/pulse/when-person-everyone-loves-quietly-hurting-team-damian-wallace-vzvsf/",
+    "date": "4 Sep 2026",
+    "excerpt": ""
   },
   {
-    "title": "Same Name, Different Lives — What Curiosity Reveals About Value",
-    "url": "https://www.linkedin.com/pulse/same-name-different-lives-what-curiosity-reveals-value-damian-wallace-ttbyc/",
-    "date": "2025",
-    "excerpt": "What happens when you look up everyone who shares your name? An exploration of how curiosity about others sharpens your understanding of your own path and what you actually bring to the table."
+    "title": "The strongest teams are usually preparing for the day they no longer need their strongest person",
+    "url": "https://www.linkedin.com/pulse/strongest-teams-usually-preparing-day-longer-need-person-wallace-1wzhf/",
+    "date": "21 Jul 2026",
+    "excerpt": ""
   },
   {
-    "title": "Failure Isn't the Opposite of Progress — It's the Steering Wheel",
-    "url": "https://www.linkedin.com/pulse/failure-isnt-opposite-progress-its-steering-wheel-damian-wallace-cma1c/",
-    "date": "2025",
-    "excerpt": "Reframing failure not as a setback but as the feedback mechanism that keeps you on course. The projects and decisions that taught the most were rarely the ones that went smoothly."
-  },
-  {
-    "title": "Reading the System Through the Wrapper",
-    "url": "https://www.linkedin.com/pulse/reading-system-through-wrapper-damian-wallace-ifodc/",
-    "date": "2025",
-    "excerpt": "How to understand what's really going on in any organisation, project, or product — by paying attention to the surface behaviours that reveal the underlying structure."
+    "title": "The strongest teams are often built in moments that do not look important at the time",
+    "url": "https://www.linkedin.com/pulse/strongest-teams-often-built-moments-do-look-important-damian-wallace-m9lvc/",
+    "date": "6 Jul 2026",
+    "excerpt": ""
   }
 ];
 
